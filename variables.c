@@ -1,7 +1,7 @@
-// ============================
-//  VARIABLES MÁS COMUNES EN C
+// =============================
+//   VARIABLES MÉS COMUNS EN C
 //  Per a ESP32 amb Arduino IDE
-// ============================
+// =============================
 
 #include <stdio.h>
 #include <stdbool.h>
