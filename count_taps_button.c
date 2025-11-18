@@ -7,39 +7,46 @@ int lastFlickerableState = LOW;
 int currentState;
 unsigned long lastDebounceTime = 0;
 
+//Inicialitzem el comptador un cop s'ha iniciat el programa.
+  int comptador = 0;
 
 void setup() {
- Serial.begin(9600);
- pinMode(BUTTON_PIN, INPUT_PULLUP);
+  
+  Serial.begin(9600);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
 }
 
 
 bool button() {
- currentState = digitalRead(BUTTON_PIN);
+  currentState = digitalRead(BUTTON_PIN);
 
 
- if (currentState != lastFlickerableState) {
-   lastDebounceTime = millis();
-   lastFlickerableState = currentState;
- }
+  if (currentState != lastFlickerableState) {
+    lastDebounceTime = millis();
+    lastFlickerableState = currentState;
+  }
 
 
- if ((millis() - lastDebounceTime) > DEBOUNCE_TIME) {
-   if (lastSteadyState != currentState) {
-     lastSteadyState = currentState;
-     // Retorna true si el botó està premut (LOW per INPUT_PULLUP)
-     return (currentState == LOW);
-   }
- }
+  if ((millis() - lastDebounceTime) > DEBOUNCE_TIME) {
+    if (lastSteadyState != currentState) {
+      lastSteadyState = currentState;
+      // Retorna true si el botó està premut (LOW per INPUT_PULLUP)
+      return (currentState == LOW);
+    }
+  }
 
 
- // Retorna false si no hi ha canvi o el botó no està premut
- return false;
+  // Retorna false si no hi ha canvi o el botó no està premut
+  return false;
 }
 
 
 void loop() {
- if (button()) {
-   Serial.println("Botó premut");
- }
+  if (button()) {
+    Serial.println("Botó premut");
+    //A partir de la notificació del botó premut, sumarem 1 al comptador i seguidament ho printarem
+    comptador += 1;
+    Serial.print("Comptador: ");
+    Serial.println(comptador);
+  }
 }
